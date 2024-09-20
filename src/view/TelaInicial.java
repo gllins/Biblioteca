@@ -49,25 +49,49 @@ public class TelaInicial extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCliente = new JButton("");
-		btnCliente.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (1).png"));
-		btnCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCliente.setBounds(10, 106, 54, 58);
-		contentPane.add(btnCliente);
-		
 		JButton btnFuncionario = new JButton("");
-		btnFuncionario.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (2).png"));
-		btnFuncionario.setSelectedIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Design sem nome (1).png"));
-		btnFuncionario.setBounds(10, 175, 54, 58);
+		btnFuncionario.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (1).png"));
+		btnFuncionario.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	 LoginF loginScreen = new LoginF();
+			        
+				 
+			        loginScreen.setVisible(true);
+			        TelaInicial.this.dispose();
+		    }
+		});		btnFuncionario.setBounds(10, 106, 54, 58);
 		contentPane.add(btnFuncionario);
 		
 		JButton btnLivros = new JButton("");
-		btnLivros.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente.png"));
-		btnLivros.setBounds(10, 37, 54, 58);
+		btnLivros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 LivrosL loginScreen = new LivrosL();
+			        
+				 
+			        loginScreen.setVisible(true);
+			        TelaInicial.this.dispose();
+			}
+		});
+		btnLivros.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (2).png"));
+		btnLivros.setSelectedIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Design sem nome (1).png"));
+		btnLivros.setBounds(10, 175, 54, 58);
 		contentPane.add(btnLivros);
+		
+		JButton btnCliente = new JButton("");
+		btnCliente.addActionListener(new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e) {
+
+		        LoginC loginScreen = new LoginC();
+		        
+		 
+		        loginScreen.setVisible(true);
+		        TelaInicial.this.dispose();
+			}
+		});
+		btnCliente.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente.png"));
+		btnCliente.setBounds(10, 37, 54, 58);
+		contentPane.add(btnCliente);
 		
 		JLabel lblBemvindo = new JLabel("Bem Vindo!");
 		lblBemvindo.setForeground(new Color(0, 128, 255));
