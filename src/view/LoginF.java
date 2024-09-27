@@ -161,7 +161,14 @@ public class LoginF extends JFrame {
 		        String telefone = textTtelefoneF.getText();
 		        String endereco = textTenderecoF.getText();
 		        String departamento = textTdepartamentoF.getText();
-
+		        
+		        int idadeInt;
+		        try {
+		            idadeInt = Integer.parseInt(idade);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Erro: Idade deve ser um número.");
+		            return;
+		        }
 		        boolean camposValidos = true;
 
 		     
@@ -202,7 +209,7 @@ public class LoginF extends JFrame {
 		        }
 		        System.out.println("Dados cadastrados:");
 		        System.out.println("Nome: " + nome);
-		        System.out.println("Idade: " + idade);
+		        System.out.println("Idade: " + idadeInt);
 		        System.out.println("CPF: " + cpf);
 		        System.out.println("E-mail: " + email);
 		        System.out.println("Telefone: " + telefone);

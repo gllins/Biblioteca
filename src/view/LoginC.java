@@ -204,13 +204,19 @@ public class LoginC extends JFrame {
 		        String telefone = textTtelefoneC.getText();
 		        String endereco = textTenderecoC.getText();
 
+		        int idadeInt;
+		        try {
+		            idadeInt = Integer.parseInt(idade);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Erro: Idade deve ser um número.");
+		            return;
+		        }
 		        boolean camposValidos = true;
 
 		     
 		        if (nome.isEmpty() || idade.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || endereco.isEmpty()) {
 		            camposValidos = false;
-		        }
-
+		        } 
 		        String cpfRegex = "^\\d{11}$"; 
 		        Pattern cpfPattern = Pattern.compile(cpfRegex);
 		        Matcher cpfMatcher = cpfPattern.matcher(cpf);
@@ -244,7 +250,7 @@ public class LoginC extends JFrame {
 		        }
 		        System.out.println("Dados cadastrados:");
 		        System.out.println("Nome: " + nome);
-		        System.out.println("Idade: " + idade);
+		        System.out.println("Idade: " + idadeInt);
 		        System.out.println("CPF: " + cpf);
 		        System.out.println("E-mail: " + email);
 		        System.out.println("Telefone: " + telefone);
