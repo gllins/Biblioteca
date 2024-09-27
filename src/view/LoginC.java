@@ -7,12 +7,19 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JList;
 
 public class LoginC extends JFrame {
 
@@ -20,7 +27,6 @@ public class LoginC extends JFrame {
 	private JPanel contentPane;
 	private JTextField textTnome;
 	private JTextField textTidade;
-	private JTextField textTsexo;
 	private JTextField textTcpfc;
 	private JTextField textTemailC;
 	private JTextField textTtelefoneC;
@@ -46,7 +52,7 @@ public class LoginC extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginC() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Giulia\\Downloads\\3296160.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
 		setTitle("Biblioteca");
 		setForeground(new Color(0, 128, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,11 +95,6 @@ public class LoginC extends JFrame {
 		lblSexoC.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lblSexoC.setBounds(276, 25, 46, 14);
 		contentPane.add(lblSexoC);
-		
-		textTsexo = new JTextField();
-		textTsexo.setBounds(276, 50, 34, 20);
-		contentPane.add(textTsexo);
-		textTsexo.setColumns(10);
 		
 		JLabel lblCPFc = new JLabel("CPF");
 		lblCPFc.setFont(new Font("Times New Roman", Font.PLAIN, 15));
@@ -139,7 +140,7 @@ public class LoginC extends JFrame {
 		btnLimparC.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		  
-		        JTextField[] textFields = {textTnome, textTsexo, textTcpfc, textTidade, textTemailC, textTtelefoneC, textTenderecoC };
+		        JTextField[] textFields = {textTnome, textTcpfc, textTidade, textTemailC, textTtelefoneC, textTenderecoC };
 		        for (JTextField textField : textFields) {
 		            textField.setText("");
 		        }
@@ -169,33 +170,91 @@ public class LoginC extends JFrame {
 		JButton btnCadastrarC = new JButton("Cadastrar");
 		btnCadastrarC.setBounds(311, 241, 113, 23);
 		contentPane.add(btnCadastrarC);
+		
+		JComboBox<String> comboBox = new JComboBox <String> ();
+		comboBox.addItem("Masculino");
+		comboBox.addItem("Feminino");
+		comboBox.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String respostaSelecionada = (String) comboBox.getSelectedItem();
+                    System.out.println("Resposta selecionada: " + respostaSelecionada);
+                }
+            }
+        });
+		comboBox.setBounds(275, 49, 104, 22);
+		contentPane.add(comboBox);
+		
+		JList<Object> list = new JList<Object>();
+		list.setToolTipText("Masculino");
+		list.setBounds(346, 52, 1, 1);
+		contentPane.add(list);
+		
+		JList<Object> list_1 = new JList<Object>();
+		list_1.setToolTipText("Feminino\r\n");
+		list_1.setBounds(346, 52, 1, 1);
+		contentPane.add(list_1);
 		btnCadastrarC.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		     
 		        String nome = textTnome.getText();
 		        String idade = textTidade.getText();
-		        String sexo = textTsexo.getText();
 		        String cpf = textTcpfc.getText();
 		        String email = textTemailC.getText();
 		        String telefone = textTtelefoneC.getText();
 		        String endereco = textTenderecoC.getText();
+
+		        boolean camposValidos = true;
+
 		     
+		        if (nome.isEmpty() || idade.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || endereco.isEmpty()) {
+		            camposValidos = false;
+		        }
+
+		        String cpfRegex = "^\\d{11}$"; 
+		        Pattern cpfPattern = Pattern.compile(cpfRegex);
+		        Matcher cpfMatcher = cpfPattern.matcher(cpf);
+
+		        if (!cpfMatcher.matches()) {
+		            camposValidos = false;
+		            JOptionPane.showMessageDialog(null, "Erro: CPF inválido.");
+		        }
+		      
+
+		        String emailRegex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
+		                           + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		        Pattern emailPattern = Pattern.compile(emailRegex);
+		        Matcher emailMatcher = emailPattern.matcher(email);
+
+		        if (!emailMatcher.matches()) {
+		            camposValidos = false;
+		            JOptionPane.showMessageDialog(null, "Erro: E-mail inválido.");
+		        }
+
+		        if (!camposValidos) {
+		            JOptionPane.showMessageDialog(null, "Erro: Preencha todos os campos corretamente.");
+		            return;
+		        }
+
+		        if (camposValidos) {
+		            LoginC.this.dispose();
+
+		            LivrosC livrosC = new LivrosC();
+		            livrosC.setVisible(true);
+		        }
 		        System.out.println("Dados cadastrados:");
 		        System.out.println("Nome: " + nome);
 		        System.out.println("Idade: " + idade);
-		        System.out.println("Sexo: " + sexo);
 		        System.out.println("CPF: " + cpf);
 		        System.out.println("E-mail: " + email);
 		        System.out.println("Telefone: " + telefone);
 		        System.out.println("Endereço: " + endereco);
 
+		    }
+		});
 		    
 		        LivrosC livrosC = new LivrosC();
 		        livrosC.setVisible(true);
 		        LoginC.this.dispose();
-		    }
-		});
-	}
-	
+	}	
 }

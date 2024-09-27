@@ -7,11 +7,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class LoginF extends JFrame {
@@ -20,7 +29,6 @@ public class LoginF extends JFrame {
 	private JPanel contentPane;
 	private JTextField textTNomeF;
 	private JTextField textTIdadeF;
-	private JTextField textTSexoF;
 	private JTextField textTCargoF;
 	private JTextField textTcpfF;
 	private JTextField textTurnoF;
@@ -50,7 +58,7 @@ public class LoginF extends JFrame {
 	 */
 	public LoginF() {
 		setTitle("Biblioteca");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Giulia\\Downloads\\3296160.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -90,18 +98,13 @@ public class LoginF extends JFrame {
 		lblSexoF.setBounds(226, 29, 46, 14);
 		contentPane.add(lblSexoF);
 		
-		textTSexoF = new JTextField();
-		textTSexoF.setBounds(225, 56, 46, 24);
-		contentPane.add(textTSexoF);
-		textTSexoF.setColumns(10);
-		
 		JLabel lblCargoF = new JLabel("Cargo");
 		lblCargoF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCargoF.setBounds(290, 30, 46, 14);
+		lblCargoF.setBounds(290, 184, 46, 14);
 		contentPane.add(lblCargoF);
 		
 		textTCargoF = new JTextField();
-		textTCargoF.setBounds(281, 56, 143, 22);
+		textTCargoF.setBounds(290, 205, 143, 22);
 		contentPane.add(textTCargoF);
 		textTCargoF.setColumns(10);
 		
@@ -111,7 +114,7 @@ public class LoginF extends JFrame {
 		contentPane.add(lblcpfF);
 		
 		textTcpfF = new JTextField();
-		textTcpfF.setBounds(0, 114, 200, 24);
+		textTcpfF.setBounds(0, 103, 200, 24);
 		contentPane.add(textTcpfF);
 		textTcpfF.setColumns(10);
 		
@@ -121,34 +124,94 @@ public class LoginF extends JFrame {
 		contentPane.add(lblTurnoF);
 		
 		textTurnoF = new JTextField();
-		textTurnoF.setBounds(221, 116, 143, 22);
+		textTurnoF.setBounds(220, 104, 143, 22);
 		contentPane.add(textTurnoF);
 		textTurnoF.setColumns(10);
 		
 		JLabel lblEmailF = new JLabel("E-mail");
 		lblEmailF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblEmailF.setBounds(10, 149, 46, 14);
+		lblEmailF.setBounds(10, 138, 46, 14);
 		contentPane.add(lblEmailF);
 		
 		textTemail = new JTextField();
-		textTemail.setBounds(0, 174, 200, 24);
+		textTemail.setBounds(0, 150, 200, 24);
 		contentPane.add(textTemail);
 		textTemail.setColumns(10);
 		
 		JLabel lblTelefoneF = new JLabel("Telefone");
 		lblTelefoneF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblTelefoneF.setBounds(207, 149, 60, 14);
+		lblTelefoneF.setBounds(210, 137, 60, 14);
 		contentPane.add(lblTelefoneF);
 		
 		textTtelefoneF = new JTextField();
-		textTtelefoneF.setBounds(210, 176, 214, 22);
+		textTtelefoneF.setBounds(210, 151, 214, 22);
 		contentPane.add(textTtelefoneF);
 		textTtelefoneF.setColumns(10);
 		
 		JButton btnCadastrarF = new JButton("Cadastrar");
 		btnCadastrarF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String nome = textTNomeF.getText();
+		        String idade = textTIdadeF.getText();
+		        String cargo = textTCargoF.getText();
+		        String email = textTemail.getText();
+		        String cpf = textTcpfF.getText();
+		        String turno = textTurnoF.getText();
+		        String telefone = textTtelefoneF.getText();
+		        String endereco = textTenderecoF.getText();
+		        String departamento = textTdepartamentoF.getText();
+
+		        boolean camposValidos = true;
+
+		     
+		        if (nome.isEmpty() || idade.isEmpty() || cargo.isEmpty() || email.isEmpty() || cpf.isEmpty() || endereco.isEmpty()|| departamento.isEmpty() || turno.isEmpty() || telefone.isEmpty() ) {
+		            camposValidos = false;
+		        }
+
+		        String cpfRegex = "^\\d{11}$"; 
+		        Pattern cpfPattern = Pattern.compile(cpfRegex);
+		        Matcher cpfMatcher = cpfPattern.matcher(cpf);
+
+		        if (!cpfMatcher.matches()) {
+		            camposValidos = false;
+		            JOptionPane.showMessageDialog(null, "Erro: CPF inválido.");
+		        }
+		      
+
+		        String emailRegex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
+		                           + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		        Pattern emailPattern = Pattern.compile(emailRegex);
+		        Matcher emailMatcher = emailPattern.matcher(email);
+
+		        if (!emailMatcher.matches()) {
+		            camposValidos = false;
+		            JOptionPane.showMessageDialog(null, "Erro: E-mail inválido.");
+		        }
+
+		        if (!camposValidos) {
+		            JOptionPane.showMessageDialog(null, "Erro: Preencha todos os campos corretamente.");
+		            return;
+		        }
+
+		        if (camposValidos) {
+		            LoginF.this.dispose();
+
+		            Gerenciamento Gerenciamento = new Gerenciamento();
+		            Gerenciamento.setVisible(true);
+		        }
+		        System.out.println("Dados cadastrados:");
+		        System.out.println("Nome: " + nome);
+		        System.out.println("Idade: " + idade);
+		        System.out.println("CPF: " + cpf);
+		        System.out.println("E-mail: " + email);
+		        System.out.println("Telefone: " + telefone);
+		        System.out.println("Turno: " + turno);
+		        System.out.println("Departamento: " + departamento);
+		        System.out.println("Cargo: " + cargo);
+		        System.out.println("Endereço: " + endereco);
+
+		    }
 		});
 		btnCadastrarF.setBounds(325, 238, 109, 23);
 		contentPane.add(btnCadastrarF);
@@ -170,7 +233,7 @@ public class LoginF extends JFrame {
 		JButton btnLimparF = new JButton("Limpar");
 		btnLimparF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				        JTextField[] textFields = {textTNomeF, textTSexoF,  textTCargoF, textTcpfF, textTIdadeF,textTurnoF, textTemail, textTtelefoneF, textTenderecoF, textTdepartamentoF };
+				        JTextField[] textFields = {textTNomeF, textTCargoF, textTcpfF, textTIdadeF,textTurnoF, textTemail, textTtelefoneF, textTenderecoF, textTdepartamentoF };
 				        for (JTextField textField : textFields) {
 				            textField.setText("");
 				        }
@@ -181,22 +244,48 @@ public class LoginF extends JFrame {
 		
 		JLabel lblEnderecoF = new JLabel("Endereço");
 		lblEnderecoF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblEnderecoF.setBounds(0, 201, 66, 14);
+		lblEnderecoF.setBounds(10, 184, 66, 14);
 		contentPane.add(lblEnderecoF);
 		
 		JLabel lblDepartamentoF = new JLabel("Departamento");
 		lblDepartamentoF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblDepartamentoF.setBounds(154, 201, 113, 14);
+		lblDepartamentoF.setBounds(147, 184, 113, 14);
 		contentPane.add(lblDepartamentoF);
 		
 		textTenderecoF = new JTextField();
-		textTenderecoF.setBounds(0, 214, 137, 14);
+		textTenderecoF.setBounds(0, 204, 137, 24);
 		contentPane.add(textTenderecoF);
 		textTenderecoF.setColumns(10);
 		
 		textTdepartamentoF = new JTextField();
-		textTdepartamentoF.setBounds(147, 214, 124, 13);
+		textTdepartamentoF.setBounds(147, 203, 124, 24);
 		contentPane.add(textTdepartamentoF);
 		textTdepartamentoF.setColumns(10);
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setToolTipText("");
+		comboBox.addItem("Masculino");
+		comboBox.addItem("Feminino");
+		comboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String respostaSelecionada = (String) comboBox.getSelectedItem();
+                    System.out.println("Resposta selecionada: " + respostaSelecionada);
+                }
+            }
+        });
+		comboBox.setBounds(225, 56, 111, 22);
+		contentPane.add(comboBox);
+		
+		JList<Object> list = new JList<Object>();
+		list.setToolTipText("Masculino");
+		list.setBounds(236, 59, 1, 1);
+		contentPane.add(list);
+		
+		JList<Object> list_1 = new JList<Object>();
+		list_1.setToolTipText("Feminino");
+		list_1.setBounds(270, 59, 1, 1);
+		contentPane.add(list_1);
 	}
 }

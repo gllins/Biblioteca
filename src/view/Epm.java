@@ -11,6 +11,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class Epm extends JFrame {
 
@@ -37,6 +38,8 @@ public class Epm extends JFrame {
 	 * Create the frame.
 	 */
 	public Epm() {
+		setTitle("Piada Mortal");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
