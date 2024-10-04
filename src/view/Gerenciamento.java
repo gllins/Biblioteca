@@ -42,7 +42,7 @@ public class Gerenciamento extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
 		setTitle("Gerenciamento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 452, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -87,13 +87,14 @@ public class Gerenciamento extends JFrame {
 		JButton btnStatusEmprestimo = new JButton("");
 		btnStatusEmprestimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 StatusEmprestimo StatusE = new StatusEmprestimo();
+				StatusEmprestimo RemoveL = new StatusEmprestimo();
 			        
-			        StatusE.setVisible(true);
+			        RemoveL.setVisible(true);
 			        
 			     Gerenciamento.this.dispose();
 			}
-		});
+			}
+		);
 		btnStatusEmprestimo.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (3).png"));
 		btnStatusEmprestimo.setBounds(21, 192, 54, 58);
 		contentPane.add(btnStatusEmprestimo);

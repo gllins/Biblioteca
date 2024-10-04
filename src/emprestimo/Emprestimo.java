@@ -40,12 +40,15 @@ public class Emprestimo {
 		this.status_emprestimo = status_emprestimo;
 		this.taxa_multa = taxa_multa;
 	}
-	public Emprestimo() {
+	public Emprestimo(Emprestimo emprestimo) {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Emprestimo(Livro livro, Pessoa f2, Pessoa c2, String string, String string2, String periodoTotal2,
 			String status_emprestimo2, int taxa_multa2) {
+		// TODO Auto-generated constructor stub
+	}
+	public Emprestimo() {
 		// TODO Auto-generated constructor stub
 	}
 	public Livro getL() {

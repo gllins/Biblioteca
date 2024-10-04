@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import livro.Biblioteca;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -27,7 +30,12 @@ public class AdicionarLivro extends JFrame {
 	private JTextField textAvaliacao;
 	private JTextField textNumPaginas;
 	private JTextField textIdioma;
+	
+	  private Biblioteca biblioteca;
 
+	    public AdicionarLivro(Biblioteca biblioteca) {
+	        this.setBiblioteca(biblioteca);
+	    }
 	/**
 	 * Launch the application.
 	 */
@@ -181,6 +189,13 @@ public class AdicionarLivro extends JFrame {
 		});
 		btnVoltar.setBounds(259, 115, 89, 23);
 		contentPane.add(btnVoltar);
+	}
+
+	public Biblioteca getBiblioteca() {
+		return biblioteca;
+	}
+	public void setBiblioteca(Biblioteca biblioteca) {
+		this.biblioteca = biblioteca;
 	}
 
 }

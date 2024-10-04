@@ -20,7 +20,12 @@ public class Livro {
   }
 
 
-  public String getTitulo() {
+  public Livro() {
+	// TODO Auto-generated constructor stub
+}
+
+
+public String getTitulo() {
     return titulo;
   }
 
