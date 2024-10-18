@@ -13,13 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JCheckBox;
 
 public class LoginC extends JFrame {
 
@@ -83,17 +81,17 @@ public class LoginC extends JFrame {
 		JLabel lblidadeC = new JLabel("Idade");
 		lblidadeC.setForeground(new Color(0, 0, 0));
 		lblidadeC.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblidadeC.setBounds(288, 80, 46, 14);
+		lblidadeC.setBounds(274, 25, 46, 14);
 		contentPane.add(lblidadeC);
 		
 		textTidade = new JTextField();
-		textTidade.setBounds(288, 105, 34, 20);
+		textTidade.setBounds(276, 50, 34, 20);
 		contentPane.add(textTidade);
 		textTidade.setColumns(10);
 		
 		JLabel lblSexoC = new JLabel("Sexo");
 		lblSexoC.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblSexoC.setBounds(276, 25, 46, 14);
+		lblSexoC.setBounds(327, 25, 46, 14);
 		contentPane.add(lblSexoC);
 		
 		JLabel lblCPFc = new JLabel("CPF");
@@ -171,20 +169,6 @@ public class LoginC extends JFrame {
 		btnCadastrarC.setBounds(311, 241, 113, 23);
 		contentPane.add(btnCadastrarC);
 		
-		JComboBox<String> comboBox = new JComboBox <String> ();
-		comboBox.addItem("Masculino");
-		comboBox.addItem("Feminino");
-		comboBox.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String respostaSelecionada = (String) comboBox.getSelectedItem();
-                    System.out.println("Resposta selecionada: " + respostaSelecionada);
-                }
-            }
-        });
-		comboBox.setBounds(275, 49, 104, 22);
-		contentPane.add(comboBox);
-		
 		JList<Object> list = new JList<Object>();
 		list.setToolTipText("Masculino");
 		list.setBounds(346, 52, 1, 1);
@@ -194,6 +178,14 @@ public class LoginC extends JFrame {
 		list_1.setToolTipText("Feminino\r\n");
 		list_1.setBounds(346, 52, 1, 1);
 		contentPane.add(list_1);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Feminino");
+		chckbxNewCheckBox.setBounds(327, 77, 97, 23);
+		contentPane.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Masculino");
+		chckbxNewCheckBox_1.setBounds(327, 49, 97, 23);
+		contentPane.add(chckbxNewCheckBox_1);
 		btnCadastrarC.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
