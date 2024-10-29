@@ -1,100 +1,111 @@
 package view;
 
-import javax.swing.*;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import emprestimo.Emprestimo;
-import livro.Livro;
-import pessoa.Pessoa;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Date;
+import java.awt.Toolkit;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StatusEmprestimo extends JFrame {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private Emprestimo emprestimo;
+	private JPanel contentPane;
 
-    public StatusEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
-        criarTela();
-    }
-
-    public StatusEmprestimo() {
-		// TODO Auto-generated constructor stub
-	}
-
-	private void criarTela() {
-        getContentPane().setLayout(new BorderLayout());
-
-        // Cabeçalho
-        JPanel header = new JPanel();
-        header.setLayout(new FlowLayout());
-        header.add(new JLabel("Verificar Status do Empréstimo"));
-        getContentPane().add(header, BorderLayout.NORTH);
-
-        // Corpo
-        JPanel body = new JPanel();
-        body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
-
-        // Informações do empréstimo
-        JPanel infoEmprestimo = new JPanel();
-        infoEmprestimo.setLayout(new GridLayout(0, 2));
-        infoEmprestimo.add(new JLabel("Livro:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getL().toString()));
-        infoEmprestimo.add(new JLabel("Funcionário:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getF().toString()));
-        infoEmprestimo.add(new JLabel("Cliente:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getC().toString()));
-        infoEmprestimo.add(new JLabel("Data de início:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getDataInic().toString()));
-        infoEmprestimo.add(new JLabel("Data de devolução:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getDataDevol().toString()));
-        infoEmprestimo.add(new JLabel("Período total:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getPeriodoTotal()));
-        infoEmprestimo.add(new JLabel("Status do empréstimo:"));
-        infoEmprestimo.add(new JLabel(emprestimo.getStatus_emprestimo()));
-        infoEmprestimo.add(new JLabel("Taxa de multa:"));
-        infoEmprestimo.add(new JLabel(String.valueOf(emprestimo.getTaxa_multa())));
-
-        body.add(infoEmprestimo);
-
-        // Rodapé
-        JPanel footer = new JPanel();
-        footer.setLayout(new FlowLayout());
-    	JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaInicial telaInicial = new TelaInicial();
-		        
-		        
-		        telaInicial.setVisible(true);
-		        
-		         StatusEmprestimo.this.dispose();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StatusEmprestimo frame = new StatusEmprestimo();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-        footer.add(btnVoltar);
+	}
 
-        getContentPane().add(body, BorderLayout.CENTER);
-        getContentPane().add(footer, BorderLayout.SOUTH);
+	/**
+	 * Create the frame.
+	 */
+	public StatusEmprestimo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
+		setTitle("Status Emprestimo");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        setSize(400, 300);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-    }
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Verificar Status do empréstimo");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblNewLabel.setBounds(97, 11, 273, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Livro: O últimos dias de Krypton");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(10, 36, 197, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Funcionário: Thaís");
+		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2.setBounds(10, 61, 116, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Cliente: Antônio");
+		lblNewLabel_2_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2_1.setBounds(10, 86, 116, 14);
+		contentPane.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("Data de início: 08/10/2024");
+		lblNewLabel_2_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2_2.setBounds(11, 110, 157, 14);
+		contentPane.add(lblNewLabel_2_2);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Data de devolução: 23/10/2024");
+		lblNewLabel_2_2_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2_2_1.setBounds(10, 135, 197, 14);
+		contentPane.add(lblNewLabel_2_2_1);
+		
+		JLabel lblNewLabel_2_2_2 = new JLabel("Status do empréstimo: Em  andamento");
+		lblNewLabel_2_2_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2_2_2.setBounds(11, 160, 234, 14);
+		contentPane.add(lblNewLabel_2_2_2);
+		
+		JLabel lblNewLabel_2_2_3 = new JLabel("Taxa de multa: 10.0");
+		lblNewLabel_2_2_3.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblNewLabel_2_2_3.setBounds(11, 185, 157, 14);
+		contentPane.add(lblNewLabel_2_2_3);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 TelaInicial TelaInicial = new TelaInicial();
+			        
+			        
+			      TelaInicial.setVisible(true);
+			        
+			       StatusEmprestimo.this.dispose();
+			}
+		});
+		btnVoltar.setBounds(156, 227, 89, 23);
+		contentPane.add(btnVoltar);
+	}
 
-    public static void main(String[] args) {
-        Livro livro = new Livro(); 
-        Pessoa funcionario = new Pessoa(); 
-        Pessoa cliente = new Pessoa(); 
-        Date dataInic = new Date(); 
-        Date dataDevol = new Date(); 
-        String periodoTotal = "15 dias"; 
-        String statusEmprestimo = "Em andamento"; 
-        float taxaMulta = 10.0f; 
-        Emprestimo emprestimo = new Emprestimo(livro, funcionario, cliente, dataInic, dataDevol, periodoTotal, statusEmprestimo, taxaMulta);
-        new StatusEmprestimo(emprestimo);
-    }}
+	public StatusEmprestimo(Emprestimo emprestimo) {
+		// TODO Auto-generated constructor stub
+	}
+}

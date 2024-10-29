@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
-import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 public class LoginC extends JFrame {
 
@@ -179,13 +180,18 @@ public class LoginC extends JFrame {
 		list_1.setBounds(346, 52, 1, 1);
 		contentPane.add(list_1);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Feminino");
-		chckbxNewCheckBox.setBounds(327, 77, 97, 23);
-		contentPane.add(chckbxNewCheckBox);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Feminino");
+		rdbtnNewRadioButton.setBounds(315, 49, 109, 23);
+		contentPane.add(rdbtnNewRadioButton);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Masculino");
-		chckbxNewCheckBox_1.setBounds(327, 49, 97, 23);
-		contentPane.add(chckbxNewCheckBox_1);
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Masculino");
+		rdbtnNewRadioButton_1.setBounds(315, 78, 109, 23);
+		contentPane.add(rdbtnNewRadioButton_1);
+	
+        ButtonGroup grupoRadios = new ButtonGroup();
+        grupoRadios.add(rdbtnNewRadioButton_1);
+        grupoRadios.add(rdbtnNewRadioButton);
+     
 		btnCadastrarC.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
@@ -250,7 +256,7 @@ public class LoginC extends JFrame {
 
 		    }
 		});
-		    
+	
 		        LivrosC livrosC = new LivrosC();
 		        livrosC.setVisible(true);
 		        LoginC.this.dispose();

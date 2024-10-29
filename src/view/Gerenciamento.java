@@ -58,7 +58,7 @@ public class Gerenciamento extends JFrame {
 		JButton btnAddL = new JButton("");
 		btnAddL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 AdicionarLivro AddLivro = new AdicionarLivro();
+				 TelaMenu AddLivro = new TelaMenu();
 			        
 			        AddLivro.setVisible(true);
 			        
@@ -72,7 +72,7 @@ public class Gerenciamento extends JFrame {
 		JButton btnRemoveL = new JButton("");
 		btnRemoveL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 RemoverLivro RemoveL = new RemoverLivro();
+				TelaMenu RemoveL = new TelaMenu();
 			        
 			        RemoveL.setVisible(true);
 			        
@@ -87,14 +87,13 @@ public class Gerenciamento extends JFrame {
 		JButton btnStatusEmprestimo = new JButton("");
 		btnStatusEmprestimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StatusEmprestimo RemoveL = new StatusEmprestimo();
-			        
-			        RemoveL.setVisible(true);
-			        
-			     Gerenciamento.this.dispose();
-			}
-			}
-		);
+				   
+				 StatusEmprestimo StatusEmprestimo = new  StatusEmprestimo();
+                StatusEmprestimo.setVisible(true);
+                Gerenciamento gerenciamento = new Gerenciamento();
+				gerenciamento.setVisible(false);
+            }
+        });
 		btnStatusEmprestimo.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (3).png"));
 		btnStatusEmprestimo.setBounds(21, 192, 54, 58);
 		contentPane.add(btnStatusEmprestimo);

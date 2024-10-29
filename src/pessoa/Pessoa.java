@@ -136,4 +136,8 @@ public static boolean isCPF(String CPF) {
         else return(false);
             } catch (InputMismatchException erro) {
             return(false);
-            }}}
+            }}
+public String getNome1() {
+	return nome;}
+}
+
