@@ -1,27 +1,27 @@
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.border.EmptyBorder;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.awt.event.ActionEvent;
+import dao.FuncionarioDao;
+import model.Funcionario;
 
 public class LoginF extends JFrame {
 
@@ -79,23 +79,23 @@ public class LoginF extends JFrame {
 		contentPane.add(lblNomeF);
 		
 		textTNomeF = new JTextField();
-		textTNomeF.setBounds(0, 55, 159, 24);
+		textTNomeF.setBounds(0, 54, 196, 24);
 		contentPane.add(textTNomeF);
 		textTNomeF.setColumns(10);
 		
 		JLabel lblidadeF = new JLabel("Idade");
 		lblidadeF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblidadeF.setBounds(170, 30, 46, 14);
+		lblidadeF.setBounds(214, 29, 46, 14);
 		contentPane.add(lblidadeF);
 		
 		textTIdadeF = new JTextField();
-		textTIdadeF.setBounds(169, 56, 46, 22);
+		textTIdadeF.setBounds(214, 56, 46, 22);
 		contentPane.add(textTIdadeF);
 		textTIdadeF.setColumns(10);
 		
 		JLabel lblSexoF = new JLabel("Sexo");
 		lblSexoF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblSexoF.setBounds(226, 29, 46, 14);
+		lblSexoF.setBounds(275, 35, 46, 14);
 		contentPane.add(lblSexoF);
 		
 		JLabel lblCargoF = new JLabel("Cargo");
@@ -148,78 +148,111 @@ public class LoginF extends JFrame {
 		contentPane.add(textTtelefoneF);
 		textTtelefoneF.setColumns(10);
 		
+		JList<Object> list = new JList<Object>();
+		list.setToolTipText("Masculino");
+		list.setBounds(346, 52, 1, 1);
+		contentPane.add(list);
+		
+		JList<Object> list_1 = new JList<Object>();
+		list_1.setToolTipText("Feminino\r\n");
+		list_1.setBounds(346, 52, 1, 1);
+		contentPane.add(list_1);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Feminino");
+		rdbtnNewRadioButton.setBounds(275, 55, 109, 23);
+		contentPane.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Masculino");
+		rdbtnNewRadioButton_1.setBounds(275, 76, 109, 23);
+		contentPane.add(rdbtnNewRadioButton_1);
+	
+        ButtonGroup grupoRadios = new ButtonGroup();
+        grupoRadios.add(rdbtnNewRadioButton_1);
+        grupoRadios.add(rdbtnNewRadioButton);
+    
+		
 		JButton btnCadastrarF = new JButton("Cadastrar");
 		btnCadastrarF.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        String nome = textTNomeF.getText();
-		        String idade = textTIdadeF.getText();
-		        String cargo = textTCargoF.getText();
-		        String email = textTemail.getText();
-		        String cpf = textTcpfF.getText();
-		        String turno = textTurnoF.getText();
-		        String telefone = textTtelefoneF.getText();
-		        String endereco = textTenderecoF.getText();
-		        String departamento = textTdepartamentoF.getText();
-		        
-		        int idadeInt;
-		        try {
-		            idadeInt = Integer.parseInt(idade);
-		        } catch (NumberFormatException ex) {
-		            JOptionPane.showMessageDialog(null, "Erro: Idade deve ser um número.");
-		            return;
-		        }
-		        boolean camposValidos = true;
 
-		     
-		        if (nome.isEmpty() || idade.isEmpty() || cargo.isEmpty() || email.isEmpty() || cpf.isEmpty() || endereco.isEmpty()|| departamento.isEmpty() || turno.isEmpty() || telefone.isEmpty() ) {
-		            camposValidos = false;
-		        }
+			public void actionPerformed(ActionEvent e) {
+				   int idadeInt;
+			        try {
+			            idadeInt = Integer.parseInt(textTIdadeF.getText());
+			        } catch (NumberFormatException ex) {
+			            JOptionPane.showMessageDialog(null, "Erro: Idade deve ser um número.");
+			            return;
+			        }
+			        boolean camposValidos = true;
 
-		        String cpfRegex = "^\\d{11}$"; 
-		        Pattern cpfPattern = Pattern.compile(cpfRegex);
-		        Matcher cpfMatcher = cpfPattern.matcher(cpf);
+			     
+			        if (textTNomeF.getText().isEmpty() ||textTIdadeF.getText().isEmpty() || textTCargoF.getText().isEmpty() || textTemail.getText().isEmpty() || textTcpfF.getText().isEmpty() || textTurnoF.getText().isEmpty()|| textTdepartamentoF.getText().isEmpty() || textTurnoF.getText().isEmpty() || textTtelefoneF.getText().isEmpty() ) {
+			            camposValidos = false;
+			        }
 
-		        if (!cpfMatcher.matches()) {
-		            camposValidos = false;
-		            JOptionPane.showMessageDialog(null, "Erro: CPF inválido.");
-		        }
-		      
+			        String cpfRegex = "^\\d{11}$"; 
+			        Pattern cpfPattern = Pattern.compile(cpfRegex);
+			        Matcher cpfMatcher = cpfPattern.matcher(textTcpfF.getText());
 
-		        String emailRegex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
-		                           + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-		        Pattern emailPattern = Pattern.compile(emailRegex);
-		        Matcher emailMatcher = emailPattern.matcher(email);
+			        if (!cpfMatcher.matches()) {
+			            camposValidos = false;
+			            JOptionPane.showMessageDialog(null, "Erro: CPF inválido.");
+			        }
+			      
 
-		        if (!emailMatcher.matches()) {
-		            camposValidos = false;
-		            JOptionPane.showMessageDialog(null, "Erro: E-mail inválido.");
-		        }
+			        String emailRegex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
+			                           + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+			        Pattern emailPattern = Pattern.compile(emailRegex);
+			        Matcher emailMatcher = emailPattern.matcher(textTemail.getText());
 
-		        if (!camposValidos) {
-		            JOptionPane.showMessageDialog(null, "Erro: Preencha todos os campos corretamente.");
-		            return;
-		        }
+			        if (!emailMatcher.matches()) {
+			            camposValidos = false;
+			            JOptionPane.showMessageDialog(null, "Erro: E-mail inválido.");
+			        }
 
-		        if (camposValidos) {
-		            LoginF.this.dispose();
+			        if (!camposValidos) {
+			            JOptionPane.showMessageDialog(null, "Erro: Preencha todos os campos corretamente.");
+			            return;
+			        }
 
-		            Gerenciamento Gerenciamento = new Gerenciamento();
-		            Gerenciamento.setVisible(true);
-		        }
-		        System.out.println("Dados cadastrados:");
-		        System.out.println("Nome: " + nome);
-		        System.out.println("Idade: " + idadeInt);
-		        System.out.println("CPF: " + cpf);
-		        System.out.println("E-mail: " + email);
-		        System.out.println("Telefone: " + telefone);
-		        System.out.println("Turno: " + turno);
-		        System.out.println("Departamento: " + departamento);
-		        System.out.println("Cargo: " + cargo);
-		        System.out.println("Endereço: " + endereco);
+			        if (camposValidos) {
+			            LoginF.this.dispose();
 
-		    }
-		});
+			            Gerenciamento Gerenciamento = new Gerenciamento();
+			            Gerenciamento.setVisible(true);
+			        }
+			        /**************************************************************/
+				       Funcionario  f  = new Funcionario();
+		            	
+		            	f.setNome(textTNomeF.getText());
+		            	f.setIdade(Integer.parseInt(textTIdadeF.getText()));
+		                f.setCpf(textTcpfF.getText());
+		                f.setEmail(textTemail.getText());
+		                f.setTelefone(textTtelefoneF.getText());
+		                f.setEndereco(textTenderecoF.getText());
+		                f.setTurno(textTurnoF.getText());
+		                f.setDepartamento(textTdepartamentoF.getText());
+		                f.setCargo(textTCargoF.getText());
+		                String sexo = rdbtnNewRadioButton.isSelected() ? "Feminino" : "Masculino";
+		                f.setSexo(sexo);
+		                
+		                FuncionarioDao fd = new FuncionarioDao();
+		                
+		               fd.save(f);
+		               /**************************************************************/
+		               System.out.println("Dados cadastrados:");
+				        System.out.println("Nome: " + textTNomeF.getText());
+				        System.out.println("Idade: " + idadeInt);
+				        System.out.println("CPF: " + textTcpfF.getText());
+				        System.out.println("E-mail: " + textTemail.getText());
+				        System.out.println("Telefone: " + textTtelefoneF.getText());
+				        System.out.println("Turno: " + textTurnoF.getText());
+				        System.out.println("Departamento: " + textTdepartamentoF.getText());
+				        System.out.println("Cargo: " + textTCargoF.getText());
+				        System.out.println("Endereço: " + textTenderecoF.getText());
+
+				    }
+				});
+
 		btnCadastrarF.setBounds(325, 238, 109, 23);
 		contentPane.add(btnCadastrarF);
 		
@@ -268,31 +301,6 @@ public class LoginF extends JFrame {
 		textTdepartamentoF.setBounds(147, 203, 124, 24);
 		contentPane.add(textTdepartamentoF);
 		textTdepartamentoF.setColumns(10);
-		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setToolTipText("");
-		comboBox.addItem("Masculino");
-		comboBox.addItem("Feminino");
-		comboBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String respostaSelecionada = (String) comboBox.getSelectedItem();
-                    System.out.println("Resposta selecionada: " + respostaSelecionada);
-                }
-            }
-        });
-		comboBox.setBounds(225, 56, 111, 22);
-		contentPane.add(comboBox);
-		
-		JList<Object> list = new JList<Object>();
-		list.setToolTipText("Masculino");
-		list.setBounds(236, 59, 1, 1);
-		contentPane.add(list);
-		
-		JList<Object> list_1 = new JList<Object>();
-		list_1.setToolTipText("Feminino");
-		list_1.setBounds(270, 59, 1, 1);
-		contentPane.add(list_1);
 	}
 }
+

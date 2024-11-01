@@ -18,9 +18,9 @@ public class ClienteDao {
             pstmt.setString(1, cliente.getNome());
             pstmt.setInt(2, cliente.getIdade());
             pstmt.setString(3, cliente.getSexo());
-            pstmt.setInt(4, cliente.getCpf());
+            pstmt.setString(4, cliente.getCpf());
             pstmt.setString(5, cliente.getEmail());
-            pstmt.setInt(6, cliente.getTelefone());
+            pstmt.setString(6, cliente.getTelefone());
             pstmt.setString(7, cliente.getEndereco());
 
             pstmt.executeUpdate();
@@ -42,9 +42,9 @@ public class ClienteDao {
                 cliente.setNome(rs.getString("nome"));
                 cliente.setIdade(rs.getInt("idade"));
                 cliente.setSexo(rs.getString("sexo"));
-                cliente.setCpf(rs.getInt("cpf"));
+                cliente.setCpf(rs.getString("cpf"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setTelefone(rs.getInt("telefone"));
+                cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEndereco(rs.getString("endereco"));
                 clientes.add(cliente);
             }
@@ -62,9 +62,9 @@ public class ClienteDao {
 
             pstmt.setInt(1, cliente.getIdade());
             pstmt.setString(2, cliente.getSexo());
-            pstmt.setInt(3, cliente.getCpf());
+            pstmt.setString(3, cliente.getCpf());
             pstmt.setString(4, cliente.getEmail());
-            pstmt.setInt(5, cliente.getTelefone());
+            pstmt.setString(5, cliente.getTelefone());
             pstmt.setString(6, cliente.getEndereco());
             pstmt.setString(7, cliente.getNome());
 
@@ -86,4 +86,9 @@ public class ClienteDao {
             e.printStackTrace();
         }
     }
+
+	public void inserirCliente(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
 }

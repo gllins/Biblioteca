@@ -4,12 +4,16 @@ public class Cliente {
     private String nome;
     private String sexo;
     private int idade;
-    private int telefone;
-    private int cpf;
+    private String telefone;
+    private String cpf;
     private String email;
     private String endereco;
 
-    @Override
+    public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String toString() {
         return "Cliente [nome=" + nome + ", sexo=" + sexo + ", idade=" + idade + ", telefone=" + telefone + 
                ", cpf=" + cpf + ", email=" + email + ", endereco=" + endereco + "]";
@@ -34,16 +38,16 @@ public class Cliente {
     public void setIdade(int idade) {
         this.idade = idade;
     }
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     public String getEmail() {

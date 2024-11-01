@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import dao.ClienteDao;
+import dao.FuncionarioDao;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -22,9 +22,9 @@ import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
-import model.Cliente;
+import model.Funcionario;
 
-public class LoginC extends JFrame {
+public class CadastroFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -34,6 +34,9 @@ public class LoginC extends JFrame {
 	private JTextField textTemailC;
 	private JTextField textTtelefoneC;
 	private JTextField textTenderecoC;
+	private JTextField textDepartamento;
+	private JTextField textTurno;
+	private JTextField textCargo;
 
 	/**
 	 * Launch the application.
@@ -42,7 +45,7 @@ public class LoginC extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginC frame = new LoginC();
+					CadastroFuncionario frame = new CadastroFuncionario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +57,7 @@ public class LoginC extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginC() {
+	public CadastroFuncionario() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\USER\\Downloads\\61f45ccfaeacba10aec9faab6775992a.png"));
 		setTitle("Biblioteca");
 		setForeground(new Color(0, 128, 255));
@@ -66,10 +69,10 @@ public class LoginC extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastroC = new JLabel("Cadastro Cliente");
+		JLabel lblCadastroC = new JLabel("Cadastro Funcionário");
 		lblCadastroC.setForeground(new Color(0, 128, 255));
 		lblCadastroC.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblCadastroC.setBounds(132, 0, 167, 30);
+		lblCadastroC.setBounds(132, 0, 182, 30);
 		contentPane.add(lblCadastroC);
 		
 		textTnome = new JTextField();
@@ -96,7 +99,7 @@ public class LoginC extends JFrame {
 		
 		JLabel lblSexoC = new JLabel("Sexo");
 		lblSexoC.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblSexoC.setBounds(327, 25, 46, 14);
+		lblSexoC.setBounds(325, 25, 46, 14);
 		contentPane.add(lblSexoC);
 		
 		JLabel lblCPFc = new JLabel("CPF");
@@ -105,7 +108,7 @@ public class LoginC extends JFrame {
 		contentPane.add(lblCPFc);
 		
 		textTcpfc = new JTextField();
-		textTcpfc.setBounds(35, 105, 231, 20);
+		textTcpfc.setBounds(35, 105, 167, 20);
 		contentPane.add(textTcpfc);
 		textTcpfc.setColumns(10);
 		
@@ -121,11 +124,11 @@ public class LoginC extends JFrame {
 		
 		JLabel lblTelefoneC = new JLabel("Telefone");
 		lblTelefoneC.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTelefoneC.setBounds(228, 136, 58, 14);
+		lblTelefoneC.setBounds(158, 186, 58, 14);
 		contentPane.add(lblTelefoneC);
 		
 		textTtelefoneC = new JTextField();
-		textTtelefoneC.setBounds(228, 161, 134, 20);
+		textTtelefoneC.setBounds(158, 211, 122, 20);
 		contentPane.add(textTtelefoneC);
 		textTtelefoneC.setColumns(10);
 		
@@ -135,7 +138,7 @@ public class LoginC extends JFrame {
 		contentPane.add(lblEnderecoC);
 		
 		textTenderecoC = new JTextField();
-		textTenderecoC.setBounds(35, 211, 128, 20);
+		textTenderecoC.setBounds(35, 211, 113, 20);
 		contentPane.add(textTenderecoC);
 		textTenderecoC.setColumns(10);
 		
@@ -161,7 +164,7 @@ public class LoginC extends JFrame {
 			        
 			        telaInicial.setVisible(true);
 			        
-			         LoginC.this.dispose();
+			         CadastroFuncionario.this.dispose();
 			}
 		});
 		btnCancelarC.setFont(new Font("Times New Roman", Font.PLAIN, 11));
@@ -195,14 +198,41 @@ public class LoginC extends JFrame {
         ButtonGroup grupoRadios = new ButtonGroup();
         grupoRadios.add(rdbtnNewRadioButton_1);
         grupoRadios.add(rdbtnNewRadioButton);
+        
+        textDepartamento = new JTextField();
+        textDepartamento.setBounds(212, 161, 135, 20);
+        contentPane.add(textDepartamento);
+        textDepartamento.setColumns(10);
+        
+        textTurno = new JTextField();
+        textTurno.setBounds(212, 105, 142, 20);
+        contentPane.add(textTurno);
+        textTurno.setColumns(10);
+        
+        textCargo = new JTextField();
+        textCargo.setBounds(290, 211, 134, 20);
+        contentPane.add(textCargo);
+        textCargo.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("Turno");
+        lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        lblNewLabel.setBounds(212, 81, 46, 14);
+        contentPane.add(lblNewLabel);
+        
+        JLabel lblDepartamento = new JLabel("Departamento");
+        lblDepartamento.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        lblDepartamento.setBounds(212, 137, 102, 14);
+        contentPane.add(lblDepartamento);
+        
+        JLabel lblCargo = new JLabel("Cargo");
+        lblCargo.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        lblCargo.setBounds(290, 186, 102, 14);
+        contentPane.add(lblCargo);
      
         btnCadastrarC.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                
-            	
-                //Main.save(nome, idade, email, telefone, endereco, cpf, sexo);
-                
                 int idadeInt;
                 try {
                     idadeInt = Integer.parseInt(textTidade.getText());
@@ -217,7 +247,7 @@ public class LoginC extends JFrame {
 		        boolean camposValidos = true;
 
 		     
-		        if (textTnome.getText().isEmpty() || textTidade.getText().isEmpty() || textTcpfc.getText().isEmpty() || textTemailC.getText().isEmpty() || textTtelefoneC.getText().isEmpty() || textTenderecoC.getText().isEmpty()) {
+		        if (textTnome.getText().isEmpty() || textTidade.getText().isEmpty() || textTcpfc.getText().isEmpty() || textTemailC.getText().isEmpty() || textTtelefoneC.getText().isEmpty() || textTenderecoC.getText().isEmpty() || textTurno.getText().isEmpty() || textCargo.getText().isEmpty() || textDepartamento.getText().isEmpty()) {
 		            camposValidos = false;
 		        } 
 		        String cpfRegex = "^\\d{11}$"; 
@@ -246,46 +276,52 @@ public class LoginC extends JFrame {
 		        }
 
 		        if (camposValidos) {
-		            LoginC.this.dispose();
+		            CadastroFuncionario.this.dispose();
 
-		            LivrosC livrosC = new LivrosC();
-		            livrosC.setVisible(true);
+		            Gerenciamento Gerenciamento = new Gerenciamento();
+		            Gerenciamento.setVisible(true);
 		        }
 		        
 		       
 		        /**************************************************************/
-		        Cliente c  = new Cliente();
+		        Funcionario f  = new Funcionario();
             	
-            	c.setNome(textTnome.getText());
-            	c.setIdade(Integer.parseInt(textTidade.getText()));
-                c.setCpf(textTcpfc.getText());
-                c.setEmail(textTemailC.getText());
-                c.setTelefone(textTtelefoneC.getText());
-                c.setEndereco(textTenderecoC.getText());
+            	f.setNome(textTnome.getText());
+            	f.setIdade(Integer.parseInt(textTidade.getText()));
+                f.setCpf(textTcpfc.getText());
+                f.setEmail(textTemailC.getText());
+                f.setTelefone(textTtelefoneC.getText());
+                f.setEndereco(textTenderecoC.getText());
+                f.setTurno(textTurno.getText());
+                f.setDepartamento(textDepartamento.getText());
+                f.setCargo(textCargo.getText());
                 String sexo = rdbtnNewRadioButton.isSelected() ? "Feminino" : "Masculino";
-                c.setSexo(sexo);
+                f.setSexo(sexo);
                 
-                ClienteDao cd = new ClienteDao();
+                FuncionarioDao fd = new FuncionarioDao();
                 
-               cd.save(c);
+               fd.save(f);
                /**************************************************************/
 		        
 		        
 		        System.out.println("Dados cadastrados:");
-		        System.out.println("Nome: " + c.getNome());
+		        System.out.println("Nome: " + f.getNome());
 		        System.out.println("Idade: " + idadeInt);
-		        System.out.println("CPF: " + c.getCpf());
-		        System.out.println("E-mail: " + c.getEmail());
-		        System.out.println("Telefone: " + c.getTelefone());
-		        System.out.println("Endereço: " + c.getEndereco());
+		        System.out.println("CPF: " + f.getCpf());
+		        System.out.println("E-mail: " + f.getEmail());
+		        System.out.println("Telefone: " + f.getTelefone());
+		        System.out.println("Endereço: " + f.getEndereco());
+		        System.out.println("Turno: " + f.getTurno());
+		        System.out.println("Departamento: " + f.getDepartamento());
+		        System.out.println("Cargo: " + f.getCargo());
 		        
 		        
 
 		    }
 		});
 	
-		        LivrosC livrosC = new LivrosC();
-		        livrosC.setVisible(true);
-		        LoginC.this.dispose();
+        		Gerenciamento gerenciamento = new Gerenciamento();
+		        gerenciamento.setVisible(true);
+		        CadastroFuncionario.this.dispose();
 	}	
 }
