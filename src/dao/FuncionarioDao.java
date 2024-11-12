@@ -22,6 +22,9 @@ public class FuncionarioDao {
             pstmt.setString(5, funcionario.getEmail());
             pstmt.setString(6, funcionario.getTelefone());
             pstmt.setString(7, funcionario.getEndereco());
+            pstmt.setString(8, funcionario.getTurno());
+            pstmt.setString(9, funcionario.getDepartamento());
+            pstmt.setString(10, funcionario.getCargo());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -46,9 +49,9 @@ public class FuncionarioDao {
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setTelefone(rs.getString("telefone"));
                 funcionario.setEndereco(rs.getString("endereco"));
-                funcionario.setEndereco(rs.getString("turno"));
-                funcionario.setEndereco(rs.getString("departamento"));
-                funcionario.setEndereco(rs.getString("cargo"));
+                funcionario.setTurno(rs.getString("turno"));
+                funcionario.setDepartamento(rs.getString("departamento"));
+                funcionario.setCargo(rs.getString("cargo"));
                 funcionarios.add(funcionario);
             }
         } catch (SQLException e) {
