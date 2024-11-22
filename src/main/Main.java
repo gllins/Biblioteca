@@ -2,12 +2,12 @@ package main;
 
 import java.sql.SQLException;
 
-import dao.ClienteDao;
+import dao.ClienteDAO;
 import model.Cliente;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        ClienteDao clienteDao = new ClienteDao(); 
+        ClienteDAO clienteDao = new ClienteDAO(); 
         
         // Criando e salvando um novo cliente
       Cliente cliente = new Cliente();

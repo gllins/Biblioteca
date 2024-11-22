@@ -7,7 +7,7 @@ import conexao.ConnectionFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuncionarioDao {
+public class FuncionarioDAO {
 
     public void save(Funcionario funcionario) {
         String sql = "INSERT INTO funcionario (nome, idade, sexo, cpf, email, telefone, endereco, turno, departamento, cargo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -1,6 +1,6 @@
 package emprestimo;
 
-import livro.Livro;
+import model.Livro;
 import pessoa.Pessoa;
 import java.time.LocalDate;
 

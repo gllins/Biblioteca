@@ -53,19 +53,19 @@ public class TelaInicial extends JFrame {
 		btnFuncionario.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (1).png"));
 		btnFuncionario.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	 LoginF loginScreen = new LoginF();
+		    	 CadastroFuncionario loginScreen = new  CadastroFuncionario();
 			        
 				 
 			        loginScreen.setVisible(true);
 			        TelaInicial.this.dispose();
 		    }
-		});		btnFuncionario.setBounds(10, 106, 54, 58);
+		});		btnFuncionario.setBounds(10, 41, 54, 58);
 		contentPane.add(btnFuncionario);
 		
 		JButton btnLivros = new JButton("");
 		btnLivros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 LivrosL loginScreen = new LivrosL();
+				 Gerenciamento loginScreen = new Gerenciamento ();
 			        
 				 
 			        loginScreen.setVisible(true);
@@ -76,22 +76,6 @@ public class TelaInicial extends JFrame {
 		btnLivros.setSelectedIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Design sem nome (1).png"));
 		btnLivros.setBounds(10, 175, 54, 58);
 		contentPane.add(btnLivros);
-		
-		JButton btnCliente = new JButton("");
-		btnCliente.addActionListener(new ActionListener() {
-	
-			public void actionPerformed(ActionEvent e) {
-
-		        LoginC loginScreen = new LoginC();
-		        
-		 
-		        loginScreen.setVisible(true);
-		        TelaInicial.this.dispose();
-			}
-		});
-		btnCliente.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente.png"));
-		btnCliente.setBounds(10, 37, 54, 58);
-		contentPane.add(btnCliente);
 		
 		JLabel lblBemvindo = new JLabel("Bem Vindo!");
 		lblBemvindo.setForeground(new Color(0, 128, 255));
@@ -109,5 +93,19 @@ public class TelaInicial extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblNewLabel.setBounds(176, 228, 182, 46);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnCliente = new JButton("");
+		btnCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 CadastroCliente loginScreen = new  CadastroCliente();
+			        
+				 
+			        loginScreen.setVisible(true);
+			        TelaInicial.this.dispose();
+			}
+		});
+		btnCliente.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente.png"));
+		btnCliente.setBounds(10, 110, 54, 58);
+		contentPane.add(btnCliente);
 	}
 }

@@ -21,4 +21,9 @@ public class ConnectionFactory {
         }
         return conn;
     }
+
+	public static Connection getConnection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

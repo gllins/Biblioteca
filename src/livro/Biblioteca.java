@@ -1,6 +1,7 @@
 package livro;
 import java.util.ArrayList;
 import java.util.List;
+import model.Livro;
 
 public class Biblioteca {
     private List<Livro> livros;

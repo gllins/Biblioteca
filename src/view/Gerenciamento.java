@@ -58,7 +58,7 @@ public class Gerenciamento extends JFrame {
 		JButton btnAddL = new JButton("");
 		btnAddL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 TelaMenu AddLivro = new TelaMenu();
+				 AdicionarLivro AddLivro = new AdicionarLivro();
 			        
 			        AddLivro.setVisible(true);
 			        
@@ -72,7 +72,7 @@ public class Gerenciamento extends JFrame {
 		JButton btnRemoveL = new JButton("");
 		btnRemoveL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaMenu RemoveL = new TelaMenu();
+				RemoverLivro RemoveL = new RemoverLivro();
 			        
 			        RemoveL.setVisible(true);
 			        
@@ -80,6 +80,7 @@ public class Gerenciamento extends JFrame {
 			}
 			}
 		);
+		
 		btnRemoveL.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (5).png"));
 		btnRemoveL.setBounds(21, 118, 54, 58);
 		contentPane.add(btnRemoveL);
