@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import dao.LivroDAO;
 import model.Livro;
@@ -14,13 +15,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
 
 public class AdicionarLivro extends JFrame {
+	
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -31,7 +39,9 @@ public class AdicionarLivro extends JFrame {
 	private JTextField ano;
 	private JTextField avaliacao;
 	private JTextField idioma;
-
+	private JLabel lblimagem;
+	private FileInputStream fis;
+	private int tamanho;
 	/**
 	 * Launch the application.
 	 */
@@ -130,6 +140,8 @@ public class AdicionarLivro extends JFrame {
 		contentPane.add(idioma);
 		idioma.setColumns(10);
 		
+		lblimagem = new JLabel();
+		
 		JButton btnNewButton = new JButton("Add Livro");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -180,9 +192,65 @@ public class AdicionarLivro extends JFrame {
 		btnNewButton_1.setBounds(236, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
-		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Design sem nome (12).png"));
-		lblNewLabel_8.setBounds(257, 52, 151, 161);
-		contentPane.add(lblNewLabel_8);
+		JButton btnCarregar = new JButton("Carregar img");
+		btnCarregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				carregarImagem();
+				
+				
+			}
+		});
+		btnCarregar.setBounds(49, 238, 177, 23);
+		contentPane.add(btnCarregar);
+		
+		JLabel lblimagem = new JLabel("");
+		lblimagem.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		lblimagem.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Biblioteca (1).png"));
+		lblimagem.setBounds(210, 52, 219, 170);
+		contentPane.add(lblimagem);
+		
+		
+		}
+		private void carregarImagem() {
+			JFileChooser jfc = new JFileChooser();
+			jfc.setDialogTitle("Selecionar Arquivo");
+			jfc.setFileFilter(new FileNameExtensionFilter("Arquivo de imagens (*PNG,*.JPG,*.JPEG", "png","jpg","jpeg"));
+			int resultado = jfc.showOpenDialog(this);
+			if (resultado == JFileChooser.APPROVE_OPTION) {
+				try {
+					
+					System.out.println("entrei no IF");
+					fis = new FileInputStream(jfc.getSelectedFile());
+					tamanho = (int) jfc.getSelectedFile().length();
+					
+					System.out.println(jfc.getSelectedFile().getAbsoluteFile());
+					//Image imagem = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(lblimagem.getWidth(), lblimagem.getHeight(),Image.SCALE_SMOOTH);
+					ImageIcon  ic = new ImageIcon("resources\renegados.jpg");  //C:\Users\USER\Desktop\livros\renegados.jpg
+					//lblimagem.setIcon(new ImageIcon(imagem));
+					lblimagem.setIcon(ic);
+					System.out.println("setoua imagem 2");
+					lblimagem.updateUI();
+				} catch (Exception e) {
+					System.out.println(e);
+				
+				}
+			} 
+		}
+
+		public FileInputStream getFis() {
+			return fis;
+		}
+
+		public void setFis(FileInputStream fis) {
+			this.fis = fis;
+		}
+
+		public int getTamanho() {
+			return tamanho;
+		}
+
+		public void setTamanho(int tamanho) {
+			this.tamanho = tamanho;
+		}
 	}
-}
+	

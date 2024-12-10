@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import dao.LivroDAO;
 import model.Livro;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class ListaLivros {
         modelo.addColumn("Ano");
         modelo.addColumn("Avaliação");
         modelo.addColumn("Idioma");
+        modelo.addColumn("Imagem");
         
         LivroDAO ld = new LivroDAO();
 
@@ -45,7 +45,7 @@ public class ListaLivros {
                         livros.get(0).getAno() ,
                         livros.get(0).getAvaliacao() ,
                         livros.get(0).getIdioma() ,
-                      
+                        livros.get(0).getImagem() ,
                 });
             
 

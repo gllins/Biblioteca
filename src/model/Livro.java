@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Blob;
+
 public class Livro {
   private String titulo;
   private String autor;
@@ -8,6 +10,7 @@ public class Livro {
   private int ano;
   private double avaliacao;
   private String idioma;
+  private Blob imagem;
 
   public Livro(String titulo, String autor, int paginas, String editora, int ano, double avaliacao, String idioma) {
     this.titulo = titulo;
@@ -86,4 +89,18 @@ public void add(Livro livro) {
 	// TODO Auto-generated method stub
 	
 }
+
+
+public Blob getImagem() {
+	return imagem;
+}
+
+
+public void setImagem(Blob imagem) {
+	this.imagem = imagem;
+}
+
+
+
+
 }
