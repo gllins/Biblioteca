@@ -16,6 +16,11 @@ public class Funcionario {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Funcionario(String string, String string2, int i, String string3, String string4, String string5,
+			String string6) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNome() {
 		return nome;
 	}

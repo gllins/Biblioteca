@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import emprestimo.Emprestimo;
+import biblioteca.Biblioteca;
 
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -105,7 +105,7 @@ public class StatusEmprestimo extends JFrame {
 		contentPane.add(btnVoltar);
 	}
 
-	public StatusEmprestimo(Emprestimo emprestimo) {
+	public StatusEmprestimo(Biblioteca emprestimo) {
 		// TODO Auto-generated constructor stub
 	}
 }
