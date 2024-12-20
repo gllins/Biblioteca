@@ -65,7 +65,7 @@ public class TelaInicial extends JFrame {
 		JButton btnLivros = new JButton("");
 		btnLivros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 Gerenciamento loginScreen = new Gerenciamento ();
+				ListaLivros loginScreen = new ListaLivros ();
 			        
 				 
 			        loginScreen.setVisible(true);

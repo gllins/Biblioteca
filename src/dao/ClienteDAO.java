@@ -86,6 +86,22 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
+    public List<String> recuperarEmailsClientes() {
+        List<String> emails = new ArrayList<>();
+        String sql = "SELECT email FROM cliente";
+
+        try (Connection conn = ConnectionFactory.createConnectionToMySQL();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                emails.add(rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emails;
+    }
 
 	public void inserirCliente(Cliente cliente) {
 		// TODO Auto-generated method stub

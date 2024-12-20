@@ -72,31 +72,26 @@ public class RemoverLivro extends JFrame {
 		
 		JButton btnNewButton = new JButton("Remover");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			      /**********************/
+		    public void actionPerformed(ActionEvent e) {
+		        /********/
 		        Livro l  = new Livro();
-            	
-            	l.setTitulo(titulo.getText());
-            	//l.setAutor(autor.getText());
-           
-       
-                LivroDAO ld = new LivroDAO();
-                
-               ld.delete(l);
-               /**********************/
-		        
-		        
+
+		        l.setTitulo(titulo.getText());
+		        // l.setAutor(autor.getText()); Se for necessário, adicione outros campos.
+
+		        LivroDAO ld = new LivroDAO();
+		        ld.delete(l.getTitulo()); // Passando apenas o título para o método delete.
+
+		        /********/
 		        System.out.println("Livro Removido:");
 		        System.out.println("Título: " + l.getTitulo());
-		        //System.out.println("Autor: " + l.getAutor());
+		        // System.out.println("Autor: " + l.getAutor()); Se necessário.
 		        JOptionPane.showMessageDialog(null, "Livro removido com sucesso!");
-		        
-		        titulo.setText("");
-		        //autor.setText("");
-		        
-		   
-			}
+
+		        titulo.setText(""); // Limpar campo de título após remoção.
+		    }
 		});
+		
 		   
 
 

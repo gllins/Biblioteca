@@ -5,9 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
+import dao.ClienteDAO;
 import dao.LivroDAO;
+import email.EmailService;
 import model.Livro;
 
 import java.awt.Toolkit;
@@ -17,10 +17,10 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 
@@ -36,7 +36,6 @@ public class AdicionarLivro extends JFrame {
 	private JTextField ano;
 	private JTextField avaliacao;
 	private JTextField idioma;
-	private JLabel lblimagem;
 	private FileInputStream fis;
 	private int tamanho;
 	/**
@@ -137,39 +136,62 @@ public class AdicionarLivro extends JFrame {
 		contentPane.add(idioma);
 		idioma.setColumns(10);
 		
-		lblimagem = new JLabel();
+		new JLabel();
 		
 		JButton btnNewButton = new JButton("Add Livro");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			      /**************************************************************/
-		        Livro l  = new Livro();
-            	
-            	l.setTitulo(titulo.getText());
-            	l.setAutor(autor.getText());
-            	l.setPaginas(Integer.parseInt(paginas.getText()));
-            	l.setEditora(editora.getText());
-            	l.setAno(Integer.parseInt(ano.getText()));
-            	l.setAvaliacao(Double.parseDouble(avaliacao.getText()));
-            	l.setIdioma(idioma.getText());
-       
-                LivroDAO ld = new LivroDAO();
-                
-               ld.save(l);
-               /**************************************************************/
-		        
-		        
-		        System.out.println("Livro cadastrado:");
-		        System.out.println("Título: " + l.getTitulo());
-		        System.out.println("Autor: " + l.getAutor());
-		        System.out.println("Páginas: " + l.getPaginas());
-		        System.out.println("Editora: " + l.getEditora());
-		        System.out.println("Ano: " + l.getAno());
-		        System.out.println("Avaliação: " + l.getAvaliacao());
-		        System.out.println("Idioma: " + l.getIdioma());
-		        JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
-		   
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            // Criação do objeto Livro
+		            Livro l = new Livro();
+
+		            l.setTitulo(titulo.getText());
+		            l.setAutor(autor.getText());
+		            l.setPaginas(Integer.parseInt(paginas.getText()));
+		            l.setEditora(editora.getText());
+		            l.setAno(Integer.parseInt(ano.getText()));
+		            l.setAvaliacao(Double.parseDouble(avaliacao.getText()));
+		            l.setIdioma(idioma.getText());
+
+		            // Salvando no banco de dados
+		            LivroDAO ld = new LivroDAO();
+		            ld.save(l);
+
+		            // Enviando notificações por e-mail
+		            ClienteDAO clienteDAO = new ClienteDAO();
+		            List<String> emails = clienteDAO.recuperarEmailsClientes();
+		            
+		         // Instanciar o serviço de envio de e-mails
+		            EmailService emailService = new EmailService("marialucena.red@gmail.com", "kcbyvyjhdqztdumo");
+
+		            for (String email : emails) {
+		                String assunto = "Novo Livro Disponível!";
+		                String mensagem = "Olá! O novo livro '" + l.getTitulo() + "' de " + l.getAutor() +
+		                                  " agora está disponível na biblioteca. Não perca a oportunidade de lê-lo!";
+
+		                // Enviar e-mail
+		                emailService.enviarEmail(email, assunto, mensagem);
+		            }
+
+		       
+		            // Mensagem de sucesso
+		            JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso e e-mails enviados!");
+
+		            // Debug no console
+		            System.out.println("Livro cadastrado:");
+		            System.out.println("Título: " + l.getTitulo());
+		            System.out.println("Autor: " + l.getAutor());
+		            System.out.println("Páginas: " + l.getPaginas());
+		            System.out.println("Editora: " + l.getEditora());
+		            System.out.println("Ano: " + l.getAno());
+		            System.out.println("Avaliação: " + l.getAvaliacao());
+		            System.out.println("Idioma: " + l.getIdioma());
+		        } catch (Exception ex) {
+		            // Tratamento de erros
+		            ex.printStackTrace();
+		            JOptionPane.showMessageDialog(null, "Erro ao cadastrar livro ou enviar e-mail: " + ex.getMessage());
+		        }
+		    }
 		});
 		btnNewButton.setBounds(335, 227, 89, 23);
 		contentPane.add(btnNewButton);
@@ -189,49 +211,13 @@ public class AdicionarLivro extends JFrame {
 		btnNewButton_1.setBounds(236, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnCarregar = new JButton("Carregar img");
-		btnCarregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				carregarImagem();
-				
-				
-			}
-		});
-		btnCarregar.setBounds(49, 238, 177, 23);
-		contentPane.add(btnCarregar);
-		
 		JLabel lblimagem = new JLabel("");
 		lblimagem.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		lblimagem.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Biblioteca (1).png"));
-		lblimagem.setBounds(210, 52, 219, 170);
+		lblimagem.setBounds(226, 52, 203, 170);
 		contentPane.add(lblimagem);
 		
 		
-		}
-		private void carregarImagem() {
-			JFileChooser jfc = new JFileChooser();
-			jfc.setDialogTitle("Selecionar Arquivo");
-			jfc.setFileFilter(new FileNameExtensionFilter("Arquivo de imagens (*PNG,*.JPG,*.JPEG", "png","jpg","jpeg"));
-			int resultado = jfc.showOpenDialog(this);
-			if (resultado == JFileChooser.APPROVE_OPTION) {
-				try {
-					
-					System.out.println("entrei no IF");
-					fis = new FileInputStream(jfc.getSelectedFile());
-					tamanho = (int) jfc.getSelectedFile().length();
-					
-					System.out.println(jfc.getSelectedFile().getAbsoluteFile());
-					//Image imagem = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(lblimagem.getWidth(), lblimagem.getHeight(),Image.SCALE_SMOOTH);
-					ImageIcon  ic = new ImageIcon("resources\renegados.jpg");  //C:\Users\USER\Desktop\livros\renegados.jpg
-					//lblimagem.setIcon(new ImageIcon(imagem));
-					lblimagem.setIcon(ic);
-					System.out.println("setoua imagem 2");
-					lblimagem.updateUI();
-				} catch (Exception e) {
-					System.out.println(e);
-				
-				}
-			} 
 		}
 
 		public FileInputStream getFis() {

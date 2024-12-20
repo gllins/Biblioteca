@@ -1,25 +1,50 @@
 package view;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import dao.LivroDAO;
 import model.Livro;
-
-import java.util.ArrayList;
+import strategy.PesquisaPorAutor;
+import strategy.PesquisaPorTitulo;
+import strategy.Contexto;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ListaLivros {
-    public static void main(String[] args) {
-     
-        JFrame frame = new JFrame("Tabela");
-        List<Livro> livros = new ArrayList<>();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 400);
+public class ListaLivros extends JFrame {
+    private static final long serialVersionUID = 1L;
 
-       
-        DefaultTableModel modelo = new DefaultTableModel();
+    // Componentes da tela
+    private JTable tabela;
+    private DefaultTableModel modelo;
+    private JComboBox<String> comboBox;
+    private JTextField termoField;
+
+    // Dados
+    private List<Livro> livros;
+    private LivroDAO livroDAO;
+
+    public ListaLivros() {
+        // Configuração da janela
+        setTitle("Tabela com Pesquisa");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(800, 500);
+        setLayout(null);
+
+        // Inicializar DAO e recuperar livros
+        livroDAO = new LivroDAO();
+        livros = livroDAO.read();
+
+        // Inicializar componentes
+        initComponents();
+
+        // Preencher tabela inicialmente
+        preencherTabela(livros);
+    }
+
+    private void initComponents() {
+        // Modelo da tabela
+        modelo = new DefaultTableModel();
         modelo.addColumn("Título");
         modelo.addColumn("Autor");
         modelo.addColumn("Páginas");
@@ -27,46 +52,75 @@ public class ListaLivros {
         modelo.addColumn("Ano");
         modelo.addColumn("Avaliação");
         modelo.addColumn("Idioma");
-        modelo.addColumn("Imagem");
-        
-        LivroDAO ld = new LivroDAO();
 
-        livros = ld.read();
-//        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/usuario", "root", "");
-//             Statement stmt = conn.createStatement();
-//             ResultSet rs = stmt.executeQuery("SELECT titulo, autor, paginas, editora, ano, avaliacao, idioma FROM livro")) {
-
-           
-                modelo.addRow(new Object[]{
-                        livros.get(0).getTitulo() ,
-                        livros.get(0).getAutor() ,
-                        livros.get(0).getPaginas() ,
-                        livros.get(0).getEditora() ,
-                        livros.get(0).getAno() ,
-                        livros.get(0).getAvaliacao() ,
-                        livros.get(0).getIdioma() ,
-                        livros.get(0).getImagem() ,
-                });
-            
-
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao carregar os dados: " + e.getMessage());
-//        }
-        frame.getContentPane().setLayout(null);
-
-        JTable tabela = new JTable(modelo);
-
-   
+        // Configurar tabela
+        tabela = new JTable(modelo);
         JScrollPane scrollPane = new JScrollPane(tabela);
-        scrollPane.setBounds(0, 0, 784, 402);
-        frame.getContentPane().add(scrollPane);
+        scrollPane.setBounds(10, 50, 760, 350);
+        add(scrollPane);
 
-    
-        frame.setVisible(true);
+        // Componentes de pesquisa
+        JLabel pesquisaLabel = new JLabel("Pesquisar por:");
+        pesquisaLabel.setBounds(10, 10, 100, 25);
+        add(pesquisaLabel);
+
+        comboBox = new JComboBox<>(new String[]{"Título", "Autor"});
+        comboBox.setBounds(110, 10, 100, 25);
+        add(comboBox);
+
+        termoField = new JTextField();
+        termoField.setBounds(220, 10, 200, 25);
+        add(termoField);
+
+        JButton pesquisarButton = new JButton("Pesquisar");
+        pesquisarButton.setBounds(430, 10, 100, 25);
+        add(pesquisarButton);
+
+        // Ação do botão de pesquisa
+        pesquisarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                realizarPesquisa();
+            }
+        });
     }
 
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
+    private void realizarPesquisa() {
+        String termo = termoField.getText();
+        String estrategiaSelecionada = (String) comboBox.getSelectedItem();
+
+        // Contexto e Estratégia
+        Contexto contexto = new Contexto();
+        if ("Título".equals(estrategiaSelecionada)) {
+            contexto.setStrategy(new PesquisaPorTitulo());
+        } else if ("Autor".equals(estrategiaSelecionada)) {
+            contexto.setStrategy(new PesquisaPorAutor());
+        }
+
+        // Realizar pesquisa e atualizar tabela
+        List<Livro> resultados = contexto.realizarPesquisa(livros, termo);
+        preencherTabela(resultados);
+    }
+
+    private void preencherTabela(List<Livro> lista) {
+        modelo.setRowCount(0); // Limpar a tabela
+        for (Livro livro : lista) {
+            modelo.addRow(new Object[]{
+                    livro.getTitulo(),
+                    livro.getAutor(),
+                    livro.getPaginas(),
+                    livro.getEditora(),
+                    livro.getAno(),
+                    livro.getAvaliacao(),
+                    livro.getIdioma()
+            });
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            ListaLivros frame = new ListaLivros();
+            frame.setVisible(true);
+        });
+    }
 }

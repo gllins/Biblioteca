@@ -85,19 +85,20 @@ public class Gerenciamento extends JFrame {
 		btnRemoveL.setBounds(21, 118, 54, 58);
 		contentPane.add(btnRemoveL);
 		
-		JButton btnStatusEmprestimo = new JButton("");
-		btnStatusEmprestimo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				   
-				 StatusEmprestimo StatusEmprestimo = new  StatusEmprestimo();
-                StatusEmprestimo.setVisible(true);
-                Gerenciamento gerenciamento = new Gerenciamento();
-				gerenciamento.setVisible(false);
-            }
-        });
-		btnStatusEmprestimo.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (3).png"));
-		btnStatusEmprestimo.setBounds(21, 192, 54, 58);
-		contentPane.add(btnStatusEmprestimo);
+		JButton btnAtualizarLivro = new JButton("");
+		btnAtualizarLivro.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        
+		    	AtualizarLivro atualizarLivro = new AtualizarLivro();
+		    	System.out.println("Criando a tela AtualizarLivro");
+		    	atualizarLivro.setLocationRelativeTo(null);  // Centraliza a tela
+		    	atualizarLivro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Comportamento de fechamento adequado
+		    	atualizarLivro.setVisible(true);  // Exibe a janela de AtualizarLivro
+		    	Gerenciamento.this.setVisible(false);  // Fecha a tela de gerenciamento
+		    }});
+		btnAtualizarLivro.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\cliente (3).png"));
+		btnAtualizarLivro.setBounds(21, 192, 54, 58);
+		contentPane.add(btnAtualizarLivro);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\USER\\Downloads\\Biblioteca.png"));

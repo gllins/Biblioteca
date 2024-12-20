@@ -1,10 +1,7 @@
-/dao/
-/emprestimo/
-/facade/
-/livro/
-/main/
-/model/
-/observer/
-/pessoa/
+/module-info.class
+/email/
 /view/
-/biblioteca/
+/livro/
+/dao/
+/model/
+/strategy/

@@ -248,8 +248,7 @@ public class CadastroCliente extends JFrame {
 		        if (camposValidos) {
 		            CadastroCliente.this.dispose();
 
-		            Gerenciamento livrosC = new Gerenciamento();
-		            livrosC.setVisible(true);
+		           
 		        }
 		        
 		       

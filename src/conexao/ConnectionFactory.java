@@ -7,23 +7,13 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-    private static final String DATABASE = "jdbc:mysql://localhost:3306/usuario";
-    
-    private static Connection conn = null;
-    
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/usuario";
+
     public static Connection createConnectionToMySQL() {
         try {
-            if (conn == null) {
-                conn = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
-            }
+            return DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro ao conectar ao banco de dados.", e);
         }
-        return conn;
     }
-
-	public static Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
